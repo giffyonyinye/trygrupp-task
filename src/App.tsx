@@ -4,13 +4,12 @@ import { Header } from '@/components/layout/Header';
 import { SettingsPage } from '@/components/settings/SettingsPage';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { useResponsive } from '@/hooks/useResponsive';
+import { useUserRoles } from '@/hooks/useUserRoles';
 
-/**
- * Main App component with responsive layout
- */
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { isMobile } = useResponsive();
+  const { roles, isLoading, error, retry } = useUserRoles();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -23,19 +22,19 @@ function App() {
   return (
     <ErrorBoundary>
       <div className="flex h-screen" style={{background: '#F9FAFB'}}>
-        {/* Sidebar */}
         <Sidebar
           isOpen={isMobile ? isSidebarOpen : true}
           onClose={isMobile ? closeSidebar : undefined}
         />
 
-        {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-x-hidden overflow-y-auto lg:ml-0">
-          {/* Header */}
-          <Header onMenuClick={toggleSidebar} />
-
-          {/* Settings Page */}
-          <SettingsPage />
+          <Header onMenuClick={toggleSidebar} isLoading={isLoading} />
+          <SettingsPage
+            roles={roles}
+            isLoading={isLoading}
+            error={error}
+            retry={retry}
+          />
         </div>
       </div>
     </ErrorBoundary>

@@ -1,13 +1,19 @@
 import React from 'react';
 import { UserRolesSection } from './UserRolesSection';
 import { UserRolesTable } from './UserRolesTable';
-import { useUserRoles } from '@/hooks/useUserRoles';
+import { UserRole } from '@/types';
+
+interface SettingsPageProps {
+  roles: UserRole[];
+  isLoading: boolean;
+  error: string | null;
+  retry: () => void;
+}
 
 /**
  * Main Settings page component
  */
-export const SettingsPage: React.FC = () => {
-  const { roles, isLoading, error, retry } = useUserRoles();
+export const SettingsPage: React.FC<SettingsPageProps> = ({ roles, isLoading, error, retry }) => {
 
   if (error) {
     return (
@@ -33,13 +39,10 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto" style={{background: '#F9FAFB'}}>
-      {/* Main Content */}
       <div className="w-full">
         <div className="p-4 md:p-6 space-y-8">
-          {/* User Roles Section */}
-          <UserRolesSection />
+          <UserRolesSection isLoading={isLoading} />
 
-          {/* User Roles Table */}
           <UserRolesTable
             roles={roles}
             isLoading={isLoading}

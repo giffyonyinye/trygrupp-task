@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Check, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AvatarGroup } from '@/components/ui/AvatarGroup';
+import { Skeleton, SkeletonAvatar, SkeletonButton } from '@/components/ui/Skeleton';
 import { UserRole } from '@/types';
 import { cn } from '@/utils/cn';
 
-// Custom Cloud Download Icon Component
 const CloudDownloadIcon: React.FC<{ size?: number; className?: string }> = ({
   size = 20,
   className = ""
@@ -32,9 +32,7 @@ interface UserRolesTableProps {
   className?: string;
 }
 
-/**
- * User Roles table component displaying all roles data
- */
+
 export const UserRolesTable: React.FC<UserRolesTableProps> = ({
   roles,
   isLoading = false,
@@ -45,13 +43,11 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Calculate pagination
   const totalPages = Math.ceil(roles.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentRoles = useMemo(() => roles.slice(startIndex, endIndex), [roles, startIndex, endIndex]);
 
-  // Update selectAll state when selectedRows changes
   useEffect(() => {
     if (currentRoles.length > 0) {
       setSelectAll(selectedRows.length === currentRoles.length && currentRoles.every(role => selectedRows.includes(role.id)));
@@ -60,10 +56,8 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
 
   const handleSelectAll = () => {
     if (selectAll) {
-      // Deselect all current page items
       setSelectedRows(prev => prev.filter(id => !currentRoles.some(role => role.id === id)));
     } else {
-      // Select all current page items
       setSelectedRows(prev => [...prev, ...currentRoles.map(role => role.id).filter(id => !prev.includes(id))]);
     }
   };
@@ -81,14 +75,118 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
   };
   if (isLoading) {
     return (
-      <div className="space-y-4">
-        <div className="flex justify-end">
-          <div className="animate-pulse bg-gray-200 h-10 w-32 rounded-lg"></div>
+      <div className={cn('space-y-6 px-2 py-6 md:p-6', className)}>
+        {/* Header Skeleton - Desktop */}
+        <div className="hidden md:flex justify-between items-center mb-6">
+          <Skeleton className="h-7 w-32" />
+          <SkeletonButton className="w-36 h-10" />
         </div>
-        <div className="animate-pulse space-y-3">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-16 bg-gray-200 rounded-lg"></div>
-          ))}
+
+        {/* Mobile Header Skeleton */}
+        <div className="md:hidden flex justify-between items-center mb-6">
+          <Skeleton className="h-7 w-32" />
+          <SkeletonButton className="w-28 h-10" />
+        </div>
+
+        {/* Desktop Table Skeleton */}
+        <div className="hidden md:block overflow-hidden rounded-xl bg-white border border-gray-200"
+             style={{
+               border: '1px solid #EAECF0',
+               boxShadow: '0px 2px 4px -2px #1018280F, 0px 4px 8px -2px #1018281A'
+             }}>
+          <table className="min-w-full">
+            <thead className="bg-gray-50" style={{ borderBottom: '1px solid #EAECF0' }}>
+              <tr>
+                <th className="px-6 py-3 text-left">
+                  <Skeleton className="w-5 h-5" />
+                </th>
+                <th className="px-6 py-3 text-left">
+                  <Skeleton className="h-4 w-16" />
+                </th>
+                <th className="px-6 py-3 text-left">
+                  <Skeleton className="h-4 w-12" />
+                </th>
+                <th className="px-6 py-3 text-left">
+                  <Skeleton className="h-4 w-24" />
+                </th>
+                <th className="px-6 py-3 text-left">
+                  <Skeleton className="h-4 w-16" />
+                </th>
+                <th className="px-6 py-3 text-left">
+                  <Skeleton className="h-4 w-20" />
+                </th>
+                <th className="relative px-6 py-3">
+                  <Skeleton className="w-5 h-5" />
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {[...Array(5)].map((_, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #EAECF0' }}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="w-5 h-5" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-24" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-16" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-4 w-20" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Skeleton className="h-6 w-16 rounded-full" />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center space-x-2">
+                      <SkeletonAvatar size="sm" />
+                      <SkeletonAvatar size="sm" />
+                      <SkeletonAvatar size="sm" />
+                      <Skeleton className="h-4 w-8" />
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <Skeleton className="w-5 h-5" />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile List Skeleton */}
+        <div className="md:hidden">
+          <div className="flex items-center justify-between py-3 border-b border-gray-200 mb-4">
+            <div className="flex items-center space-x-3">
+              <Skeleton className="w-4 h-4" />
+              <Skeleton className="h-4 w-16" />
+            </div>
+            <Skeleton className="h-4 w-24" />
+          </div>
+          <div className="space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="flex items-center justify-between py-4 border-b border-gray-100">
+                <div className="flex items-center space-x-3">
+                  <Skeleton className="w-4 h-4" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+                <Skeleton className="h-4 w-16" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Pagination Skeleton */}
+        <div className="flex items-center justify-between pt-4">
+          <Skeleton className="h-4 w-32" />
+          <div className="flex items-center space-x-2">
+            <SkeletonButton className="w-20 h-10" />
+            <Skeleton className="w-8 h-8" />
+            <Skeleton className="w-8 h-8" />
+            <Skeleton className="w-8 h-8" />
+            <SkeletonButton className="w-16 h-10" />
+          </div>
         </div>
       </div>
     );
@@ -141,7 +239,6 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
   };
 
   const formatRoleName = (name: string) => {
-    // Remove numbers from the end of role names for cleaner display
     return name.replace(/\s+\d+$/, '');
   };
 
@@ -151,7 +248,6 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
 
   return (
     <div className={cn('space-y-6 px-2 py-6 md:p-6', className)}>
-      {/* Header with User Roles title and Download Button - Desktop */}
       <div className="hidden md:flex justify-between items-center mb-6">
         <div>
           <h2 className="text-gray-900" style={{fontFamily: 'Inter', fontWeight: 500, fontSize: '18px', lineHeight: '28px', letterSpacing: '0%'}}>User Roles</h2>
@@ -169,7 +265,6 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
         </button>
       </div>
 
-      {/* Desktop Table */}
       <div className="hidden md:block overflow-hidden rounded-xl bg-white"
            style={{
              border: '1px solid #EAECF0',
@@ -279,10 +374,7 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
           </tbody>
         </table>
       </div>
-
-      {/* Mobile View - Simplified List */}
       <div className="md:hidden">
-        {/* Mobile Header with User Roles title and Download Button */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-gray-900" style={{fontFamily: 'Inter', fontWeight: 500, fontSize: '18px', lineHeight: '28px', letterSpacing: '0%'}}>User Roles</h2>
           <button className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
@@ -291,7 +383,6 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
           </button>
         </div>
 
-        {/* Mobile Table Header */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200 mb-4">
           <div className="flex items-center space-x-3">
             <input
@@ -311,7 +402,6 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
           <span className="text-sm font-medium text-gray-900">Date Created</span>
         </div>
 
-        {/* Mobile Role List */}
         <div className="space-y-0">
           {currentRoles.map((role, index) => (
             <div
@@ -343,10 +433,8 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
         </div>
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="border-t border-gray-200 bg-white">
-          {/* Desktop Pagination */}
           <div className="hidden md:flex items-center justify-between px-6 py-4">
             <div className="flex items-center text-sm text-gray-700">
               <span>
@@ -402,14 +490,11 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
             </div>
           </div>
 
-          {/* Mobile Pagination */}
           <div className="md:hidden px-3 py-4 space-y-3">
-            {/* Mobile Results Info */}
             <div className="text-center text-sm text-gray-700">
               Page {currentPage} of {totalPages} ({roles.length} total)
             </div>
 
-            {/* Mobile Navigation */}
             <div className="flex items-center justify-between">
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
@@ -425,10 +510,8 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
                 Previous
               </button>
 
-              {/* Mobile Page Numbers - Show limited set */}
               <div className="flex items-center space-x-1">
                 {totalPages <= 5 ? (
-                  // Show all pages if 5 or fewer
                   Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <button
                       key={page}
@@ -444,7 +527,6 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
                     </button>
                   ))
                 ) : (
-                  // Show condensed pagination for many pages
                   <>
                     {currentPage > 2 && (
                       <>

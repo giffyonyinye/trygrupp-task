@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { Mail, Plus, Check, Users } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { Skeleton, SkeletonAvatar } from '@/components/ui/Skeleton';
+
+interface UserRolesSectionProps {
+  isLoading?: boolean;
+}
 
 /**
  * User Roles section component for settings page
  */
-export const UserRolesSection: React.FC = () => {
+export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = false }) => {
   const [selectedEmail, setSelectedEmail] = useState('my-account');
   const [selectedRole, setSelectedRole] = useState(1); // Default to Superadmin
 
@@ -33,19 +38,104 @@ export const UserRolesSection: React.FC = () => {
     }
   ];
 
+  if (isLoading) {
+    return (
+      <div className="space-y-8 px-2 py-6 md:px-6">
+        {/* Connected Email Skeleton */}
+        <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
+          <div className="flex-shrink-0">
+            <Skeleton className="h-5 w-32 mb-1" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+          <div className="flex-1 space-y-4">
+            <div className="flex items-center space-x-2">
+              <Skeleton className="w-4 h-4 rounded-full" />
+              <div>
+                <Skeleton className="h-5 w-32 mb-1" />
+                <Skeleton className="h-4 w-40" />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <Skeleton className="w-4 h-4 rounded-full" />
+                <Skeleton className="h-5 w-36" />
+              </div>
+              <div className="pl-6">
+                <Skeleton className="h-10 w-full max-w-md rounded-lg" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Active Role Skeleton */}
+        <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0 pt-8 border-t border-gray-200">
+          <div className="flex-shrink-0">
+            <Skeleton className="h-5 w-24 mb-1" />
+            <Skeleton className="h-4 w-48" />
+          </div>
+          <div className="flex-1">
+            {/* Desktop Role cards skeleton */}
+            <div className="hidden md:block space-y-3">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="rounded-lg border border-gray-200 bg-white p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3 flex-1">
+                      <SkeletonAvatar size="md" />
+                      <div className="flex flex-col justify-center">
+                        <Skeleton className="h-4 w-24 mb-2" />
+                        <Skeleton className="h-3 w-32 mb-2" />
+                        <div className="flex items-center space-x-3">
+                          <Skeleton className="h-4 w-20" />
+                          <Skeleton className="h-4 w-12" />
+                        </div>
+                      </div>
+                    </div>
+                    <Skeleton className="w-6 h-6 rounded-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile Role cards skeleton */}
+            <div className="md:hidden space-y-3">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="rounded-xl border border-gray-200 bg-white p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start space-x-3 flex-1">
+                      <SkeletonAvatar size="md" />
+                      <div className="flex-1 min-w-0">
+                        <Skeleton className="h-5 w-24 mb-1" />
+                        <Skeleton className="h-4 w-32 mb-3" />
+                        <div className="flex items-center space-x-4">
+                          <Skeleton className="h-4 w-20" />
+                          <Skeleton className="h-4 w-12" />
+                        </div>
+                      </div>
+                    </div>
+                    <Skeleton className="w-6 h-6 rounded-full ml-3" />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4">
+              <Skeleton className="h-9 w-32 rounded-lg" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8 px-2 py-6 md:px-6">
-      {/* Connected Email */}
       <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
-        {/* Left side - Labels */}
         <div className="flex-shrink-0">
           <h3 className="figma-label-text text-gray-900 mb-1">Connected email</h3>
           <p className="figma-small-text text-gray-600">Select role account</p>
         </div>
 
-        {/* Right side - Email options */}
         <div className="flex-1 space-y-4">
-          {/* My account email option */}
           <div className="flex items-center space-x-2">
             <input
               type="radio"
@@ -65,7 +155,6 @@ export const UserRolesSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Alternative email option */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
               <input
@@ -85,7 +174,6 @@ export const UserRolesSection: React.FC = () => {
               </label>
             </div>
 
-            {/* Email input field */}
             <div className="pl-6">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -103,17 +191,13 @@ export const UserRolesSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Active Role */}
       <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0 pt-8 border-t border-gray-200">
-        {/* Left side - Labels */}
         <div className="flex-shrink-0">
           <h3 className="figma-label-text text-gray-900 mb-1">Active Role</h3>
           <p className="figma-small-text text-gray-600">Select active role available to the user.</p>
         </div>
 
-        {/* Right side - Role options */}
         <div className="flex-1">
-          {/* Desktop Role cards container */}
           <div className="hidden md:block space-y-3">
           {activeRoles.map((role) => (
             <div
@@ -132,7 +216,6 @@ export const UserRolesSection: React.FC = () => {
                 gap: '4px'
               }}
             >
-              {/* Left side - User icon and role info */}
               <div className="flex items-center space-x-3 flex-1">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                   selectedRole === role.id ? "bg-purple-100" : "bg-gray-100"
@@ -148,7 +231,6 @@ export const UserRolesSection: React.FC = () => {
                   </div>
                   <p className="text-xs text-gray-500" style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '18px', letterSpacing: '0%'}}>Last active {role.lastActive}</p>
 
-                  {/* Action buttons below the role info */}
                   <div className="flex items-center space-x-3 mt-2">
                     <button className={`transition-colors ${
                       selectedRole === role.id ? 'text-[#7F56D9] hover:text-purple-700' : 'text-gray-500 hover:text-gray-700'
@@ -162,15 +244,12 @@ export const UserRolesSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Right side - Check icon or radio button */}
               <div className="flex items-center">
                 {selectedRole === role.id ? (
-                  /* Check icon for selected role */
                   <div className="w-6 h-6 bg-[#7F56D9] rounded-full flex items-center justify-center">
                     <Check size={16} className="text-white" />
                   </div>
                 ) : (
-                  /* Radio button for non-selected roles */
                   <input
                     type="radio"
                     name="active-role"
@@ -185,7 +264,6 @@ export const UserRolesSection: React.FC = () => {
           ))}
           </div>
 
-          {/* Mobile Role cards container */}
           <div className="md:hidden space-y-3">
             {activeRoles.map((role) => (
               <div
@@ -201,7 +279,6 @@ export const UserRolesSection: React.FC = () => {
                 }}
               >
                 <div className="flex items-start justify-between">
-                  {/* Left side - Icon and role info */}
                   <div className="flex items-start space-x-3 flex-1">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                       selectedRole === role.id ? "bg-purple-100" : "bg-gray-100"
@@ -230,7 +307,6 @@ export const UserRolesSection: React.FC = () => {
                         Last active {role.lastActive}
                       </p>
 
-                      {/* Action buttons */}
                       <div className="flex items-center space-x-4">
                         <button className={`transition-colors ${
                           selectedRole === role.id ? 'text-[#7F56D9] hover:text-purple-700' : 'text-gray-500 hover:text-gray-700'
@@ -256,7 +332,6 @@ export const UserRolesSection: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Right side - Check icon or radio button */}
                   <div className="flex items-center ml-3">
                     {selectedRole === role.id ? (
                       <div className="w-6 h-6 bg-[#7F56D9] rounded-full flex items-center justify-center">
