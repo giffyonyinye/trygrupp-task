@@ -40,7 +40,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ roles, isLoading, er
   return (
     <div className="flex-1 overflow-x-hidden overflow-y-auto" style={{background: '#F9FAFB'}}>
       <div className="w-full">
-        <div className="p-4 md:p-6 space-y-8">
+        <div className=" md:p-6 space-y-8">
           <UserRolesSection isLoading={isLoading} />
 
           <UserRolesTable

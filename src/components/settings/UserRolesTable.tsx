@@ -89,12 +89,12 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
         </div>
 
         {/* Desktop Table Skeleton */}
-        <div className="hidden md:block overflow-hidden rounded-xl bg-white border border-gray-200"
+        <div className="hidden md:block overflow-x-auto overflow-y-hidden rounded-xl bg-white border border-gray-200 scrollbar-hide"
              style={{
                border: '1px solid #EAECF0',
                boxShadow: '0px 2px 4px -2px #1018280F, 0px 4px 8px -2px #1018281A'
              }}>
-          <table className="min-w-full">
+          <table className="min-w-full w-max">
             <thead className="bg-gray-50" style={{ borderBottom: '1px solid #EAECF0' }}>
               <tr>
                 <th className="px-6 py-3 text-left">
@@ -155,25 +155,72 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
           </table>
         </div>
 
-        {/* Mobile List Skeleton */}
+        {/* Mobile Scrollable Table Skeleton */}
         <div className="md:hidden">
-          <div className="flex items-center justify-between py-3 border-b border-gray-200 mb-4">
-            <div className="flex items-center space-x-3">
-              <Skeleton className="w-4 h-4" />
-              <Skeleton className="h-4 w-16" />
-            </div>
-            <Skeleton className="h-4 w-24" />
-          </div>
-          <div className="space-y-4">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="flex items-center justify-between py-4 border-b border-gray-100">
-                <div className="flex items-center space-x-3">
-                  <Skeleton className="w-4 h-4" />
-                  <Skeleton className="h-4 w-24" />
-                </div>
-                <Skeleton className="h-4 w-16" />
-              </div>
-            ))}
+          <div className="overflow-x-auto overflow-y-hidden rounded-xl bg-white border border-gray-200 scrollbar-hide"
+               style={{
+                 border: '1px solid #EAECF0',
+                 boxShadow: '0px 2px 4px -2px #1018280F, 0px 4px 8px -2px #1018281A'
+               }}>
+            <table className="min-w-full w-max">
+              <thead className="bg-gray-50" style={{ borderBottom: '1px solid #EAECF0' }}>
+                <tr>
+                  <th className="px-4 py-3 text-left">
+                    <Skeleton className="w-4 h-4" />
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    <Skeleton className="h-4 w-16" />
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    <Skeleton className="h-4 w-12" />
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    <Skeleton className="h-4 w-24" />
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    <Skeleton className="h-4 w-16" />
+                  </th>
+                  <th className="px-4 py-3 text-left">
+                    <Skeleton className="h-4 w-20" />
+                  </th>
+                  <th className="relative px-4 py-3">
+                    <Skeleton className="w-4 h-4" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                {[...Array(5)].map((_, i) => (
+                  <tr key={i} style={{ borderBottom: '1px solid #EAECF0' }}>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Skeleton className="w-4 h-4" />
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Skeleton className="h-4 w-24" />
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Skeleton className="h-4 w-16" />
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Skeleton className="h-4 w-20" />
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <Skeleton className="h-6 w-16 rounded-full" />
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div className="flex items-center space-x-2">
+                        <SkeletonAvatar size="sm" />
+                        <SkeletonAvatar size="sm" />
+                        <SkeletonAvatar size="sm" />
+                        <Skeleton className="h-4 w-8" />
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-right">
+                      <Skeleton className="w-4 h-4" />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -265,12 +312,12 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
         </button>
       </div>
 
-      <div className="hidden md:block overflow-hidden rounded-xl bg-white"
+      <div className="hidden md:block overflow-x-auto overflow-y-hidden rounded-xl bg-white scrollbar-hide"
            style={{
              border: '1px solid #EAECF0',
              boxShadow: '0px 2px 4px -2px #1018280F, 0px 4px 8px -2px #1018281A'
            }}>
-        <table className="min-w-full">
+        <table className="min-w-full w-max">
           <thead className="bg-gray-50" style={{ borderBottom: '1px solid #EAECF0' }}>
             <tr>
               <th className="px-6 py-3 text-left">
@@ -383,53 +430,110 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
           </button>
         </div>
 
-        <div className="flex items-center justify-between py-3 border-b border-gray-200 mb-4">
-          <div className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              checked={selectAll}
-              onChange={handleSelectAll}
-              className="w-4 h-4 rounded border border-gray-300 text-[#7F56D9] focus:ring-[#7F56D9] focus:ring-1"
-              style={{
-                accentColor: '#7F56D9'
-              }}
-            />
-            <span className="text-sm font-medium text-gray-900 flex items-center space-x-1">
-              <span>Name</span>
-              <ChevronDown size={14} className="text-gray-400" />
-            </span>
-          </div>
-          <span className="text-sm font-medium text-gray-900">Date Created</span>
-        </div>
-
-        <div className="space-y-0">
-          {currentRoles.map((role, index) => (
-            <div
-              key={role.id}
-              className={cn(
-                "flex items-center justify-between py-4",
-                index !== roles.length - 1 && "border-b border-gray-100"
-              )}
-            >
-              <div className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  checked={selectedRows.includes(role.id)}
-                  onChange={() => handleRowSelect(role.id)}
-                  className="w-4 h-4 rounded border border-gray-300 text-[#7F56D9] focus:ring-[#7F56D9] focus:ring-1"
-                  style={{
-                    accentColor: '#7F56D9'
-                  }}
-                />
-                <span className="text-sm font-medium text-gray-900">
-                  {formatRoleName(role.name)}
-                </span>
-              </div>
-              <span className="text-sm text-gray-500">
-                {role.date}
-              </span>
-            </div>
-          ))}
+        {/* Mobile Scrollable Table */}
+        <div className="overflow-x-auto overflow-y-hidden rounded-xl bg-white scrollbar-hide"
+             >
+          <table className="min-w-full w-max">
+            <thead className="bg-gray-50" style={{ borderBottom: '1px solid #EAECF0' }}>
+              <tr>
+                <th className="px-4 py-3 text-left">
+                  <input
+                    type="checkbox"
+                    checked={selectAll}
+                    onChange={handleSelectAll}
+                    className="w-4 h-4 rounded border-2 border-gray-300 text-[#7F56D9] focus:ring-[#7F56D9] focus:ring-2 focus:ring-offset-0"
+                    style={{
+                      accentColor: '#7F56D9'
+                    }}
+                  />
+                </th>
+                <th className="px-4 py-3 text-left figma-small-text text-gray-500 whitespace-nowrap">
+                  <div className="flex items-center space-x-1 cursor-pointer hover:text-gray-700">
+                    <span>Name</span>
+                    <ChevronDown size={14} />
+                  </div>
+                </th>
+                <th className="px-4 py-3 text-left figma-small-text text-gray-500 whitespace-nowrap">
+                  Type
+                </th>
+                <th className="px-4 py-3 text-left figma-small-text text-gray-500 whitespace-nowrap">
+                  Date created
+                </th>
+                <th className="px-4 py-3 text-left figma-small-text text-gray-500 whitespace-nowrap">
+                  Status
+                </th>
+                <th className="px-4 py-3 text-left figma-small-text text-gray-500 whitespace-nowrap">
+                  Role users
+                </th>
+                <th className="relative px-4 py-3">
+                  <span className="sr-only">Actions</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {currentRoles.map((role) => (
+                <tr
+                  key={role.id}
+                  className={cn(
+                    "transition-colors",
+                    selectedRows.includes(role.id) ? "bg-gray-50" : "hover:bg-gray-50"
+                  )}
+                  style={{ borderBottom: '1px solid #EAECF0' }}
+                >
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    <input
+                      type="checkbox"
+                      checked={selectedRows.includes(role.id)}
+                      onChange={() => handleRowSelect(role.id)}
+                      className="w-4 h-4 rounded border-2 border-gray-300 text-[#7F56D9] focus:ring-[#7F56D9] focus:ring-2 focus:ring-offset-0"
+                      style={{
+                        accentColor: '#7F56D9'
+                      }}
+                    />
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    <div className="figma-label-text text-gray-900">{formatRoleName(role.name)}</div>
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    {getTypeText(role.type)}
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    <span
+                      style={{
+                        fontFamily: 'Inter',
+                        fontWeight: 400,
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        letterSpacing: '0%',
+                        color: '#667085'
+                      }}
+                    >
+                      {role.date}
+                    </span>
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    {getStatusBadge(role.status)}
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap">
+                    <div className="flex items-center space-x-2">
+                      <AvatarGroup avatars={role.users} maxVisible={3} size="sm" />
+                      {role.totalUser > 0 && (
+                        <span className="figma-small-text text-gray-500">+{role.totalUser}</span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-4 py-4 whitespace-nowrap text-right">
+                    <button
+                      className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+                      title="Download"
+                    >
+                      <CloudDownloadIcon size={16} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
