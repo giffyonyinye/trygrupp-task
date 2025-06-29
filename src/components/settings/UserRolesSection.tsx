@@ -1,0 +1,291 @@
+import React, { useState } from 'react';
+import { Mail, Plus, Check, Users } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+
+/**
+ * User Roles section component for settings page
+ */
+export const UserRolesSection: React.FC = () => {
+  const [selectedEmail, setSelectedEmail] = useState('my-account');
+  const [selectedRole, setSelectedRole] = useState(1); // Default to Superadmin
+
+  const activeRoles = [
+    {
+      id: 1,
+      name: 'Superadmin',
+      lastActive: '06/2023',
+      isDefault: false,
+      isPrimary: true
+    },
+    {
+      id: 2,
+      name: 'Developeradmin',
+      lastActive: '01/2023',
+      isDefault: true,
+      isPrimary: false
+    },
+    {
+      id: 3,
+      name: 'Supportadmin',
+      lastActive: '10/2022',
+      isDefault: true,
+      isPrimary: false
+    }
+  ];
+
+  return (
+    <div className="space-y-8 px-2 py-6 md:px-6">
+      {/* Connected Email */}
+      <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
+        {/* Left side - Labels */}
+        <div className="flex-shrink-0">
+          <h3 className="figma-label-text text-gray-900 mb-1">Connected email</h3>
+          <p className="figma-small-text text-gray-600">Select role account</p>
+        </div>
+
+        {/* Right side - Email options */}
+        <div className="flex-1 space-y-4">
+          {/* My account email option */}
+          <div className="flex items-center space-x-2">
+            <input
+              type="radio"
+              id="my-account-email"
+              name="email-option"
+              value="my-account"
+              checked={selectedEmail === 'my-account'}
+              onChange={(e) => setSelectedEmail(e.target.value)}
+              className="w-4 h-4 text-[#7F56D9] bg-white border-gray-300 focus:ring-[#7F56D9] focus:ring-2"
+              style={{
+                accentColor: '#7F56D9'
+              }}
+            />
+            <div>
+              <label htmlFor="my-account-email" className="figma-label-text text-gray-900">My account email</label>
+              <p className="figma-small-text text-gray-600">olivia@untitledui.com</p>
+            </div>
+          </div>
+
+          {/* Alternative email option */}
+          <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+              <input
+                type="radio"
+                id="alternative-email"
+                name="email-option"
+                value="alternative"
+                checked={selectedEmail === 'alternative'}
+                onChange={(e) => setSelectedEmail(e.target.value)}
+                className="w-4 h-4 text-[#7F56D9] bg-white border-gray-300 focus:ring-[#7F56D9] focus:ring-2"
+                style={{
+                  accentColor: '#7F56D9'
+                }}
+              />
+              <label htmlFor="alternative-email" className="figma-label-text text-gray-900">
+                An alternative email
+              </label>
+            </div>
+
+            {/* Email input field */}
+            <div className="pl-6">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail size={16} className="text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  value="billing@untitledui.com"
+                  className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors max-w-md"
+                  readOnly
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Active Role */}
+      <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
+        {/* Left side - Labels */}
+        <div className="flex-shrink-0">
+          <h3 className="figma-label-text text-gray-900 mb-1">Active Role</h3>
+          <p className="figma-small-text text-gray-600">Select active role available to the user.</p>
+        </div>
+
+        {/* Right side - Role options */}
+        <div className="flex-1">
+          {/* Desktop Role cards container */}
+          <div className="hidden md:block space-y-3">
+          {activeRoles.map((role) => (
+            <div
+              key={role.id}
+              className={`flex items-center justify-between rounded-lg transition-colors cursor-pointer ${
+                selectedRole === role.id
+                  ? 'bg-[#F9F5FF] border border-[#D6BBFB]'
+                  : 'bg-white border border-gray-200 hover:bg-gray-50'
+              }`}
+              onClick={() => setSelectedRole(role.id)}
+              style={{
+                height: '100px',
+                borderRadius: '8px',
+                borderWidth: '1px',
+                padding: '16px',
+                gap: '4px'
+              }}
+            >
+              {/* Left side - User icon and role info */}
+              <div className="flex items-center space-x-3 flex-1">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  selectedRole === role.id ? "bg-purple-100" : "bg-gray-100"
+                }`}>
+                  <Users size={20} className={selectedRole === role.id ? "text-[#7F56D9]" : "text-gray-600"} />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <div className="flex items-center space-x-2">
+                    <span className={`${selectedRole === role.id ? 'text-[#7F56D9]' : 'text-gray-900'}`} style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '14px', lineHeight: '20px', letterSpacing: '0%'}}>{role.name}</span>
+                    {selectedRole === role.id && (
+                      <div className="w-2 h-2 bg-[#7F56D9] rounded-full"></div>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-500" style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '18px', letterSpacing: '0%'}}>Last active {role.lastActive}</p>
+
+                  {/* Action buttons below the role info */}
+                  <div className="flex items-center space-x-3 mt-2">
+                    <button className={`transition-colors ${
+                      selectedRole === role.id ? 'text-[#7F56D9] hover:text-purple-700' : 'text-gray-500 hover:text-gray-700'
+                    }`} style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '14px', lineHeight: '20px', letterSpacing: '0%'}}>
+                      Set as default
+                    </button>
+                    <button className="transition-colors text-[#7F56D9] hover:text-purple-700" style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '14px', lineHeight: '20px', letterSpacing: '0%'}}>
+                      Edit
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right side - Check icon or radio button */}
+              <div className="flex items-center">
+                {selectedRole === role.id ? (
+                  /* Check icon for selected role */
+                  <div className="w-6 h-6 bg-[#7F56D9] rounded-full flex items-center justify-center">
+                    <Check size={16} className="text-white" />
+                  </div>
+                ) : (
+                  /* Radio button for non-selected roles */
+                  <input
+                    type="radio"
+                    name="active-role"
+                    value={role.id}
+                    checked={selectedRole === role.id}
+                    onChange={() => setSelectedRole(role.id)}
+                    className="w-4 h-4 text-[#7F56D9] bg-white border-gray-300 focus:ring-[#7F56D9] focus:ring-2 checked:bg-[#7F56D9] checked:border-[#7F56D9]"
+                  />
+                )}
+              </div>
+            </div>
+          ))}
+          </div>
+
+          {/* Mobile Role cards container */}
+          <div className="md:hidden space-y-3">
+            {activeRoles.map((role) => (
+              <div
+                key={role.id}
+                className={`rounded-xl border transition-colors cursor-pointer ${
+                  selectedRole === role.id
+                    ? 'bg-[#F9F5FF] border-[#D6BBFB]'
+                    : 'bg-white border-gray-200 hover:bg-gray-50'
+                }`}
+                onClick={() => setSelectedRole(role.id)}
+                style={{
+                  padding: '16px'
+                }}
+              >
+                <div className="flex items-start justify-between">
+                  {/* Left side - Icon and role info */}
+                  <div className="flex items-start space-x-3 flex-1">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      selectedRole === role.id ? "bg-purple-100" : "bg-gray-100"
+                    }`}>
+                      <Users size={20} className={selectedRole === role.id ? "text-[#7F56D9]" : "text-gray-600"} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className={`font-medium mb-1 ${
+                        selectedRole === role.id ? 'text-[#7F56D9]' : 'text-gray-900'
+                      }`} style={{
+                        fontFamily: 'Inter',
+                        fontWeight: 500,
+                        fontSize: '16px',
+                        lineHeight: '24px',
+                        letterSpacing: '0%'
+                      }}>
+                        {role.name}
+                      </h3>
+                      <p className="text-gray-500 mb-3" style={{
+                        fontFamily: 'Inter',
+                        fontWeight: 400,
+                        fontSize: '14px',
+                        lineHeight: '20px',
+                        letterSpacing: '0%'
+                      }}>
+                        Last active {role.lastActive}
+                      </p>
+
+                      {/* Action buttons */}
+                      <div className="flex items-center space-x-4">
+                        <button className={`transition-colors ${
+                          selectedRole === role.id ? 'text-[#7F56D9] hover:text-purple-700' : 'text-gray-500 hover:text-gray-700'
+                        }`} style={{
+                          fontFamily: 'Inter',
+                          fontWeight: 500,
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                          letterSpacing: '0%'
+                        }}>
+                          Set as default
+                        </button>
+                        <button className="text-[#7F56D9] hover:text-purple-700 transition-colors" style={{
+                          fontFamily: 'Inter',
+                          fontWeight: 500,
+                          fontSize: '14px',
+                          lineHeight: '20px',
+                          letterSpacing: '0%'
+                        }}>
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right side - Check icon or radio button */}
+                  <div className="flex items-center ml-3">
+                    {selectedRole === role.id ? (
+                      <div className="w-6 h-6 bg-[#7F56D9] rounded-full flex items-center justify-center">
+                        <Check size={16} className="text-white" />
+                      </div>
+                    ) : (
+                      <input
+                        type="radio"
+                        name="active-role-mobile"
+                        value={role.id}
+                        checked={selectedRole === role.id}
+                        onChange={() => setSelectedRole(role.id)}
+                        className="w-5 h-5 text-[#7F56D9] bg-white border-gray-300 focus:ring-[#7F56D9] focus:ring-2"
+                        style={{
+                          accentColor: '#7F56D9'
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <Button variant="ghost" size="sm" leftIcon={<Plus size={16} />} className="mt-4">
+            Add role to user
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
