@@ -594,101 +594,111 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
             </div>
           </div>
 
-          <div className="md:hidden px-3 py-4 space-y-3">
+          <div className="md:hidden px-3 py-4 space-y-4">
             <div className="text-center text-sm text-gray-700">
               Page {currentPage} of {totalPages} ({roles.length} total)
             </div>
 
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className={cn(
-                  "flex items-center px-4 py-3 mr-1 text-sm font-medium rounded-lg border transition-colors min-w-[100px] justify-center",
-                  currentPage === 1
-                    ? "text-gray-400 bg-gray-100 border-gray-200 cursor-not-allowed"
-                    : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50 active:bg-gray-100"
-                )}
-              >
-                <ChevronLeft size={16} className="mr-1" />
-                Previous
-              </button>
-
-              <div className="flex items-center space-x-1">
-                {totalPages <= 5 ? (
-                  Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => handlePageChange(page)}
-                      className={cn(
-                        "w-10 h-10 text-sm font-medium rounded-lg transition-colors",
-                        page === currentPage
-                          ? "bg-[#7F56D9] text-white"
-                          : "text-gray-700 hover:bg-gray-100 active:bg-gray-200"
+            {/* Mobile Pagination - Stacked Layout */}
+            <div className="space-y-3">
+              {/* Page Numbers - Centered and Scrollable */}
+              <div className="flex justify-center">
+                <div className="flex items-center space-x-1 overflow-x-auto scrollbar-hide max-w-full px-2">
+                  {totalPages <= 3 ? (
+                    Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        className={cn(
+                          "w-10 h-10 text-sm font-medium rounded-lg transition-colors flex-shrink-0",
+                          page === currentPage
+                            ? "bg-[#7F56D9] text-white"
+                            : "text-gray-700 hover:bg-gray-100 active:bg-gray-200"
+                        )}
+                      >
+                        {page}
+                      </button>
+                    ))
+                  ) : (
+                    <>
+                      {/* Always show first page if not near it */}
+                      {currentPage > 2 && (
+                        <>
+                          <button
+                            onClick={() => handlePageChange(1)}
+                            className="w-10 h-10 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200 flex-shrink-0"
+                          >
+                            1
+                          </button>
+                          {currentPage > 3 && <span className="text-gray-400 flex-shrink-0">...</span>}
+                        </>
                       )}
-                    >
-                      {page}
-                    </button>
-                  ))
-                ) : (
-                  <>
-                    {currentPage > 2 && (
-                      <>
-                        <button
-                          onClick={() => handlePageChange(1)}
-                          className="w-10 h-10 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200"
-                        >
-                          1
-                        </button>
-                        {currentPage > 3 && <span className="text-gray-400">...</span>}
-                      </>
-                    )}
 
-                    {[currentPage - 1, currentPage, currentPage + 1]
-                      .filter(page => page >= 1 && page <= totalPages)
-                      .map((page) => (
-                        <button
-                          key={page}
-                          onClick={() => handlePageChange(page)}
-                          className={cn(
-                            "w-10 h-10 text-sm font-medium rounded-lg transition-colors",
-                            page === currentPage
-                              ? "bg-[#7F56D9] text-white"
-                              : "text-gray-700 hover:bg-gray-100 active:bg-gray-200"
-                          )}
-                        >
-                          {page}
-                        </button>
-                      ))}
+                      {/* Show current page and adjacent pages */}
+                      {[currentPage - 1, currentPage, currentPage + 1]
+                        .filter(page => page >= 1 && page <= totalPages)
+                        .map((page) => (
+                          <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={cn(
+                              "w-10 h-10 text-sm font-medium rounded-lg transition-colors flex-shrink-0",
+                              page === currentPage
+                                ? "bg-[#7F56D9] text-white"
+                                : "text-gray-700 hover:bg-gray-100 active:bg-gray-200"
+                            )}
+                          >
+                            {page}
+                          </button>
+                        ))}
 
-                    {currentPage < totalPages - 1 && (
-                      <>
-                        {currentPage < totalPages - 2 && <span className="text-gray-400">...</span>}
-                        <button
-                          onClick={() => handlePageChange(totalPages)}
-                          className="w-10 h-10 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200"
-                        >
-                          {totalPages}
-                        </button>
-                      </>
-                    )}
-                  </>
-                )}
+                      {/* Always show last page if not near it */}
+                      {currentPage < totalPages - 1 && (
+                        <>
+                          {currentPage < totalPages - 2 && <span className="text-gray-400 flex-shrink-0">...</span>}
+                          <button
+                            onClick={() => handlePageChange(totalPages)}
+                            className="w-10 h-10 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-100 active:bg-gray-200 flex-shrink-0"
+                          >
+                            {totalPages}
+                          </button>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
 
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className={cn(
-                  "flex items-center px-4 py-3 text-sm ml-1 font-medium rounded-lg border transition-colors min-w-[100px] justify-center",
-                  currentPage === totalPages
-                    ? "text-gray-400 bg-gray-100 border-gray-200 cursor-not-allowed"
-                    : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50 active:bg-gray-100"
-                )}
-              >
-                Next
-                <ChevronRight size={16} className="ml-1" />
-              </button>
+              {/* Previous/Next Buttons - Full Width */}
+              <div className="flex items-center justify-between gap-3">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={cn(
+                    "flex items-center px-4 py-3 text-sm font-medium rounded-lg border transition-colors flex-1 justify-center",
+                    currentPage === 1
+                      ? "text-gray-400 bg-gray-100 border-gray-200 cursor-not-allowed"
+                      : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50 active:bg-gray-100"
+                  )}
+                >
+                  <ChevronLeft size={16} className="mr-1" />
+                  Previous
+                </button>
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={cn(
+                    "flex items-center px-4 py-3 text-sm font-medium rounded-lg border transition-colors flex-1 justify-center",
+                    currentPage === totalPages
+                      ? "text-gray-400 bg-gray-100 border-gray-200 cursor-not-allowed"
+                      : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50 active:bg-gray-100"
+                  )}
+                >
+                  Next
+                  <ChevronRight size={16} className="ml-1" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
