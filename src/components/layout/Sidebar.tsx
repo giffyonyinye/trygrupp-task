@@ -68,20 +68,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto shadow-lg lg:shadow-none flex flex-col',
+          'fixed left-0 top-0 h-full bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto shadow-lg lg:shadow-none flex flex-col',
           isOpen ? 'translate-x-0' : '-translate-x-full',
           className
         )}
+        style={{ width: '280px' }}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center">
             <img
               src="/Logo.png"
               alt="Untitled UI"
-              className="w-8 h-8"
+              className="h-8 w-auto object-contain"
             />
-            <span className="font-semibold text-gray-900">Untitled UI</span>
           </div>
           
           {/* Mobile close button */}
@@ -98,13 +98,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Search */}
         <div className="p-4">
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search size={16} className="text-gray-400" />
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Search size={20} className="text-gray-500" />
             </div>
             <input
               type="text"
               placeholder="Olivia Rhye"
-              className="w-full pl-10 pr-3 py-2.5 border border-purple-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors bg-white"
+              className="w-full pl-12 pr-4 py-3 border-2 border-[#D6BBFB] rounded-2xl text-base focus:outline-none focus:ring-0 focus:border-[#7F56D9] transition-colors bg-white text-gray-900 placeholder-gray-500"
+              style={{
+                fontFamily: 'Inter',
+                fontWeight: 400,
+                fontSize: '16px',
+                lineHeight: '24px'
+              }}
             />
           </div>
         </div>
@@ -119,9 +125,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className={cn(
                     'flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                     item.isActive
-                      ? 'bg-gray-100 text-gray-900'
+                      ? 'text-gray-900'
                       : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                   )}
+                  style={item.isActive ? { background: '#F9FAFB' } : {}}
                 >
                   <div className="flex items-center space-x-3">
                     {getIcon(item.icon || '')}

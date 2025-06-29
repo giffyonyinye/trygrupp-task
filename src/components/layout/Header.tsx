@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
       </div>
 
       {/* User Roles Section Header */}
-      <div className="px-4 py-6 lg:px-6" style={{background: '#F9FAFB'}}>
+      <div className="px-4 py-6 lg:px-6 border-b border-gray-200" style={{background: '#F9FAFB'}}>
         <div>
           <h2 className="text-lg font-medium text-gray-900 mb-1">User Roles</h2>
           <p className="text-sm text-gray-600">Update your roles details and information.</p>

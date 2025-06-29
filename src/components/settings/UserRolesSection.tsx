@@ -104,7 +104,7 @@ export const UserRolesSection: React.FC = () => {
       </div>
 
       {/* Active Role */}
-      <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
+      <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0 pt-8 border-t border-gray-200">
         {/* Left side - Labels */}
         <div className="flex-shrink-0">
           <h3 className="figma-label-text text-gray-900 mb-1">Active Role</h3>
