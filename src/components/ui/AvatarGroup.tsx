@@ -8,9 +8,7 @@ export interface AvatarGroupProps {
   className?: string;
 }
 
-/**
- * AvatarGroup component for displaying multiple avatars with overflow indicator
- */
+
 export const AvatarGroup: React.FC<AvatarGroupProps> = ({ 
   avatars, 
   maxVisible = 4, 
@@ -48,7 +46,6 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
             sizeClasses[size]
           )}
           onError={(e) => {
-            // Fallback to placeholder if image fails to load
             e.currentTarget.src = "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face";
           }}
         />

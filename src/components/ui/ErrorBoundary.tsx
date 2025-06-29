@@ -11,9 +11,6 @@ interface State {
   error?: Error;
 }
 
-/**
- * Error boundary component to catch and handle React errors
- */
 export class ErrorBoundary extends Component<Props, State> {
   public state: State = {
     hasError: false

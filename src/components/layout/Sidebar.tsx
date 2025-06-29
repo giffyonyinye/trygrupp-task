@@ -21,9 +21,7 @@ interface SidebarProps {
   className?: string;
 }
 
-/**
- * Sidebar navigation component
- */
+
 export const Sidebar: React.FC<SidebarProps> = ({ 
   isOpen = true, 
   onClose,
@@ -57,7 +55,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* Mobile overlay */}
       {isOpen && onClose && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -65,7 +62,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         />
       )}
       
-      {/* Sidebar */}
       <div
         className={cn(
           'fixed left-0 top-0 h-full bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:z-auto shadow-lg lg:shadow-none flex flex-col',
@@ -74,7 +70,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
         style={{ width: '280px' }}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div className="flex items-center">
             <img
@@ -84,7 +79,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
             />
           </div>
           
-          {/* Mobile close button */}
           {onClose && (
             <button
               onClick={onClose}
@@ -95,7 +89,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           )}
         </div>
 
-        {/* Search */}
         <div className="p-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -115,7 +108,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* Navigation */}
         <nav className="px-4 pb-4">
           <ul className="space-y-1">
             {navigationItems.map((item) => (
@@ -145,19 +137,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </ul>
         </nav>
 
-        {/* New features section */}
         <div className="px-4 py-4 border-t border-gray-200 mt-auto">
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="font-medium text-gray-900 text-sm mb-2">New features available!</h3>
             <p className="text-gray-600 text-xs mb-3">Check out the new dashboard view. Pages now load faster.</p>
             <div className="mb-3">
-              {/* New features preview image */}
               <img
                 src="/Image wrap.png"
                 alt="Feature preview"
                 className="w-full h-20 object-cover rounded-md"
                 onError={(e) => {
-                  // Fallback to placeholder if image not found
                   e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=100&fit=crop&crop=face";
                 }}
               />
@@ -169,7 +158,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* User profile */}
         <div className="p-4 border-t border-gray-200">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -178,7 +166,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 alt="Olivia Rhye"
                 className="w-10 h-10 rounded-full object-cover"
                 onError={(e) => {
-                  // Fallback to placeholder if image not found
                   e.currentTarget.src = "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face";
                 }}
               />

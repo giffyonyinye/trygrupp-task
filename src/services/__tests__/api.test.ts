@@ -1,6 +1,5 @@
 import { fetchUserRoles, ApiError, updateUserRole, addUserRole } from '../api';
 
-// Mock fetch globally
 global.fetch = jest.fn();
 
 describe('API Service', () => {

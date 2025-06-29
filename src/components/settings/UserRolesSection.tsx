@@ -7,9 +7,7 @@ interface UserRolesSectionProps {
   isLoading?: boolean;
 }
 
-/**
- * User Roles section component for settings page
- */
+
 export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = false }) => {
   const [selectedEmail, setSelectedEmail] = useState('my-account');
   const [selectedRole, setSelectedRole] = useState(1); // Default to Superadmin
@@ -41,7 +39,6 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
   if (isLoading) {
     return (
       <div className="space-y-8 px-2 py-6 md:px-6">
-        {/* Connected Email Skeleton */}
         <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
           <div className="flex-shrink-0">
             <Skeleton className="h-5 w-32 mb-1" />
@@ -67,14 +64,12 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
           </div>
         </div>
 
-        {/* Active Role Skeleton */}
         <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0 pt-8 border-t border-gray-200">
           <div className="flex-shrink-0">
             <Skeleton className="h-5 w-24 mb-1" />
             <Skeleton className="h-4 w-48" />
           </div>
           <div className="flex-1">
-            {/* Desktop Role cards skeleton */}
             <div className="hidden md:block space-y-3">
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="rounded-lg border border-gray-200 bg-white p-4">
@@ -96,7 +91,6 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
               ))}
             </div>
 
-            {/* Mobile Role cards skeleton */}
             <div className="md:hidden space-y-3">
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="rounded-xl border border-gray-200 bg-white p-4">
@@ -128,7 +122,13 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
   }
 
   return (
-    <div className="space-y-8 px-2 py-6 md:px-6">
+    <div className="space-y-8 px-2 pb-6 md:px-6">
+      <div className="px-4 pb-6 lg:px-6 border-b border-gray-200" style={{background: '#F9FAFB'}}>
+        <div>
+          <h2 className="text-lg font-medium text-gray-900 mb-1">User Roles</h2>
+          <p className="text-sm text-gray-600">Update your roles details and information.</p>
+        </div>
+      </div>
       <div className="flex flex-col md:flex-row md:items-start md:space-x-8 space-y-4 md:space-y-0">
         <div className="flex-shrink-0">
           <h3 className="figma-label-text text-gray-900 mb-1">Connected email</h3>
@@ -136,7 +136,7 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
         </div>
 
         <div className="flex-1 space-y-4">
-          <div className="flex items-center space-x-2">
+          <div className="flex  space-x-3">
             <input
               type="radio"
               id="my-account-email"
@@ -144,7 +144,7 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
               value="my-account"
               checked={selectedEmail === 'my-account'}
               onChange={(e) => setSelectedEmail(e.target.value)}
-              className="w-4 h-4 text-[#7F56D9] bg-white border-gray-300 focus:ring-[#7F56D9] focus:ring-2"
+              className="w-4 h-4 text-[#7F56D9] bg-white border-gray-300 mt-1 focus:ring-[#7F56D9] focus:ring-2"
               style={{
                 accentColor: '#7F56D9'
               }}
@@ -217,17 +217,15 @@ export const UserRolesSection: React.FC<UserRolesSectionProps> = ({ isLoading = 
               }}
             >
               <div className="flex items-center space-x-3 flex-1">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  selectedRole === role.id ? "bg-purple-100" : "bg-gray-100"
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                  selectedRole === role.id ? "bg-white border border-gray-200" : "bg-white border border-gray-200"
                 }`}>
                   <Users size={20} className={selectedRole === role.id ? "text-[#7F56D9]" : "text-gray-600"} />
                 </div>
                 <div className="flex flex-col justify-center">
                   <div className="flex items-center space-x-2">
                     <span className={`${selectedRole === role.id ? 'text-[#7F56D9]' : 'text-gray-900'}`} style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '14px', lineHeight: '20px', letterSpacing: '0%'}}>{role.name}</span>
-                    {selectedRole === role.id && (
-                      <div className="w-2 h-2 bg-[#7F56D9] rounded-full"></div>
-                    )}
+                    
                   </div>
                   <p className="text-xs text-gray-500" style={{fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '18px', letterSpacing: '0%'}}>Last active {role.lastActive}</p>
 

@@ -1,7 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { useResponsive } from '../useResponsive';
 
-// Mock window.innerWidth and window.innerHeight
 const mockWindowSize = (width: number, height: number) => {
   Object.defineProperty(window, 'innerWidth', {
     writable: true,
@@ -15,7 +14,6 @@ const mockWindowSize = (width: number, height: number) => {
   });
 };
 
-// Mock window.addEventListener and removeEventListener
 const mockEventListener = () => {
   const listeners: { [key: string]: EventListener[] } = {};
 
@@ -69,7 +67,6 @@ describe('useResponsive Hook', () => {
     
     expect(result.current.windowSize.width).toBe(1024);
     
-    // Change window size and trigger resize
     act(() => {
       mockWindowSize(1280, 800);
       eventMock.triggerEvent('resize');
@@ -82,7 +79,7 @@ describe('useResponsive Hook', () => {
   });
 
   it('correctly identifies mobile breakpoint', () => {
-    mockWindowSize(640, 480); // Below md (768px)
+    mockWindowSize(640, 480); 
     
     const { result } = renderHook(() => useResponsive());
     

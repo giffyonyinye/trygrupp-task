@@ -9,9 +9,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   rightIcon?: React.ReactNode;
 }
 
-/**
- * Reusable Button component with multiple variants and sizes
- */
+
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ 
     className, 

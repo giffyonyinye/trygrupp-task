@@ -1,6 +1,4 @@
-# Settings Page Application
 
-A responsive settings page application built with React, TypeScript, and Tailwind CSS that matches the provided Figma design specifications.
 
 ## 🚀 Features
 
@@ -144,6 +142,4 @@ The application is deployed on Vercel with automatic deployments from the main b
 
 This project is built as a technical assessment and follows modern web development best practices.
 
-## 🤝 Contributing
 
-This is a demonstration project. For any questions or feedback, please reach out through the provided channels.

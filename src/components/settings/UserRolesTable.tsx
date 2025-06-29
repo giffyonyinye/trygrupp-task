@@ -177,7 +177,7 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
           </div>
         </div>
 
-        {/* Pagination Skeleton */}
+        
         <div className="flex items-center justify-between pt-4">
           <Skeleton className="h-4 w-32" />
           <div className="flex items-center space-x-2">
@@ -500,7 +500,7 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 className={cn(
-                  "flex items-center px-4 py-3 text-sm font-medium rounded-lg border transition-colors min-w-[100px] justify-center",
+                  "flex items-center px-4 py-3 mr-1 text-sm font-medium rounded-lg border transition-colors min-w-[100px] justify-center",
                   currentPage === 1
                     ? "text-gray-400 bg-gray-100 border-gray-200 cursor-not-allowed"
                     : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50 active:bg-gray-100"
@@ -576,7 +576,7 @@ export const UserRolesTable: React.FC<UserRolesTableProps> = ({
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className={cn(
-                  "flex items-center px-4 py-3 text-sm font-medium rounded-lg border transition-colors min-w-[100px] justify-center",
+                  "flex items-center px-4 py-3 text-sm ml-1 font-medium rounded-lg border transition-colors min-w-[100px] justify-center",
                   currentPage === totalPages
                     ? "text-gray-400 bg-gray-100 border-gray-200 cursor-not-allowed"
                     : "text-gray-700 bg-white border-gray-300 hover:bg-gray-50 active:bg-gray-100"
